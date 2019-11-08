@@ -1,0 +1,31 @@
+
+#popup-modal{
+    display: flex;
+    flex-direction: column;
+    -moz-box-align: center;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    -moz-box-pack: justify;
+    justify-content: space-between;
+    -moz-box-align: center;
+    align-items: center;
+    width: 400px;
+    margin: 10px 0px;
+}
+
+.icon_location{
+    background-image: url("../images/location.jpg");
+}
+
+.class_district{
+    pointer-events: none;
+    background-color: rgb(242, 242, 242);
+}
+
+.class_ward{
+    pointer-events: none;
+    background-color: rgb(242, 242, 242);
+}

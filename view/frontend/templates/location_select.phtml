@@ -1,0 +1,102 @@
+<?php
+/**@var Magenest\Location\Block\Location\Link $block */
+$cities = $block->getAllCityResponse()->LtsItem;
+?>
+
+<li><i class="icon_location"></i><a id="location" style="cursor: pointer"></a></li>
+<div id="location-modal" style="display:none;">
+    <table>
+        <tr>
+            <td>Tỉnh/Thành phố</td>
+            <td>
+                <select id="city">
+                    <option id="default_city" value="default_city">Vui lòng chọn tỉnh/thành phố</option>
+                    <?php foreach ($cities as $city): ?>
+                        <option value="<?php echo $city->ID ?>"><?php echo $city->Title ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Quận/Huyện</td>
+            <td>
+                <select id="district" class="class_district">
+                    <option id="default_district" value="default_district">Vui lòng chọn quận/huyện</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Phường/Xã</td>
+            <td>
+                <select id="ward" class="class_ward">
+                    <option id="default_district" value="default_district">Vui lòng chọn phường/xã</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function ($, modal) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: 'Location Select',
+                buttons: [{
+                    text: $.mage.__('Giao đến địa chỉ này'),
+                    class: '',
+                    click: function () {
+                        var city = document.getElementById('city');
+                        var value_city = city.options[city.selectedIndex].value;
+                        var text_city = city.options[city.selectedIndex].text;
+
+                        var district = document.getElementById('district');
+                        var value_district = district.options[district.selectedIndex].value;
+                        var text_district = district.options[district.selectedIndex].text;
+
+                        var ward = document.getElementById('ward');
+                        var value_ward = ward.options[ward.selectedIndex].value;
+                        var text_ward = ward.options[ward.selectedIndex].text;
+
+                        //Set value
+                        document.cookie = 'city=' + text_city + ';path=/';
+                        document.cookie = 'district=' + text_district + ';path=/';
+                        document.cookie = 'ward=' + text_ward + ';path=/';
+
+                        //Set id to check selected when reload any page
+                        document.cookie = 'cityId=' + value_city + ';path=/';
+                        document.cookie = 'districtId=' + value_district + ';path=/';
+                        document.cookie = 'wardId=' + value_ward + ';path=/';
+
+                        //Save district list to set value option district when reload page
+                        var json_district = JSON.stringify(window.arrDistrictByCity);
+                        document.cookie = 'arrDistrict=' + json_district + ';path=/';
+                        //Save ward list to set value option ward when reload page
+                        var json_ward = JSON.stringify(window.arrWardByDistrict);
+                        document.cookie = 'arrWard=' + json_ward + ';path=/';
+
+                        if (!isNaN(value_city) && !isNaN(value_district) && !isNaN(value_ward)) {
+                            var shipping_address = document.getElementById('location');
+                            shipping_address.text = $.cookie('ward') + ', ' + $.cookie('district') + ', ' + $.cookie('city');
+
+                            this.closeModal();
+                        }
+                    }
+                }]
+            };
+
+            var popup = modal(options, $('#location-modal'));
+            $("#location").on('click', function () {
+                $("#location-modal").modal("openModal");
+            });
+
+        }
+    );
+</script>
