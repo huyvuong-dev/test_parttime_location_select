@@ -1,0 +1,23 @@
+<input id="city" class="input-text" type="text" data-bind="
+    value: value,
+    valueUpdate: 'change',
+    hasFocus: focused,
+    attr: {
+        name: inputName,
+        placeholder: placeholder,
+        'aria-describedby': getDescriptionId(),
+        'aria-required': required,
+        'aria-invalid': error() ? true : 'false',
+        id: uid,
+        disabled: disabled
+    }" />
+
+<script type="text/javascript">
+    $('.city').val($.cookie('city'));
+    function AppViewModel() {
+            this.value = ko.observable($.cookie('city'));
+    }
+
+    // Activates knockout.js
+    ko.applyBindings(new AppViewModel());
+</script>
