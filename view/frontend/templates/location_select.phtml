@@ -65,24 +65,24 @@ $cities = $block->getAllCityResponse()->LtsItem;
                         var value_ward = ward.options[ward.selectedIndex].value;
                         var text_ward = ward.options[ward.selectedIndex].text;
 
-                        //Set value
-                        document.cookie = 'city=' + text_city + ';path=/';
-                        document.cookie = 'district=' + text_district + ';path=/';
-                        document.cookie = 'ward=' + text_ward + ';path=/';
-
-                        //Set id to check selected when reload any page
-                        document.cookie = 'cityId=' + value_city + ';path=/';
-                        document.cookie = 'districtId=' + value_district + ';path=/';
-                        document.cookie = 'wardId=' + value_ward + ';path=/';
-
-                        //Save district list to set value option district when reload page
-                        var json_district = JSON.stringify(window.arrDistrictByCity);
-                        document.cookie = 'arrDistrict=' + json_district + ';path=/';
-                        //Save ward list to set value option ward when reload page
-                        var json_ward = JSON.stringify(window.arrWardByDistrict);
-                        document.cookie = 'arrWard=' + json_ward + ';path=/';
-
                         if (!isNaN(value_city) && !isNaN(value_district) && !isNaN(value_ward)) {
+                            //Set value
+                            document.cookie = 'city=' + text_city + ';path=/';
+                            document.cookie = 'district=' + text_district + ';path=/';
+                            document.cookie = 'ward=' + text_ward + ';path=/';
+
+                            //Set id to check selected when reload any page
+                            document.cookie = 'cityId=' + value_city + ';path=/';
+                            document.cookie = 'districtId=' + value_district + ';path=/';
+                            document.cookie = 'wardId=' + value_ward + ';path=/';
+
+                            //Save district list to set value option district when reload page
+                            var json_district = JSON.stringify(window.arrDistrictByCity);
+                            document.cookie = 'arrDistrict=' + json_district + ';path=/';
+                            //Save ward list to set value option ward when reload page
+                            var json_ward = JSON.stringify(window.arrWardByDistrict);
+                            document.cookie = 'arrWard=' + json_ward + ';path=/';
+
                             var shipping_address = document.getElementById('location');
                             shipping_address.text = $.cookie('ward') + ', ' + $.cookie('district') + ', ' + $.cookie('city');
 

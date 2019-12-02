@@ -14,6 +14,7 @@ class LayoutProcessor
     private $_customer;
     private $_customerSession;
     private $_addressRepositoryInterface;
+
     public function __construct(
         \Magento\Customer\Api\CustomerRepositoryInterface $customerRepositoryInterface,
         \Magento\Customer\Api\AddressRepositoryInterface $addressRepositoryInterface,
@@ -30,6 +31,7 @@ class LayoutProcessor
         array $jsLayout
     )
     {
+
         $id = $this->_customerSession->getCustomer()->getId();
         if ($id){
             $addresses = $this->_customer->getById($id)->getAddresses();

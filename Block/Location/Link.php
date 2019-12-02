@@ -34,6 +34,8 @@ class Link extends \Magento\Framework\View\Element\Template
         $url = 'https://thongtindoanhnghiep.co/api/city';
         $this->_curl->get($url);
         $response = $this->_curl->getBody();
+        //add more paramater = true in json_decode to convert object -> array
+        //$resultArray = json_decode($response,true);
         $resultArray = json_decode($response);
 
         return $resultArray;
